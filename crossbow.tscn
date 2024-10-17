@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://d0eogvtmw56kf"]
+
+[ext_resource type="Script" path="res://Crossbow.gd" id="1_8kpm8"]
+[ext_resource type="Texture2D" uid="uid://cbuxsk12ynnqv" path="res://assets/Crossbow/crossbow1.png" id="2_oad4o"]
+[ext_resource type="Texture2D" uid="uid://di4pfbhpubtal" path="res://assets/Crossbow/crossbow2.png" id="3_gq1wr"]
+[ext_resource type="Texture2D" uid="uid://di0xt7yc8rw6k" path="res://assets/Crossbow/crossbow3.png" id="4_k64m8"]
+[ext_resource type="Texture2D" uid="uid://ojrn7tatejkr" path="res://assets/Crossbow/crossbow4.png" id="5_u8fgu"]
+[ext_resource type="Texture2D" uid="uid://d2ufsdd1wlqg" path="res://assets/Crossbow/crossbow5.png" id="6_gt30d"]
+[ext_resource type="Texture2D" uid="uid://bmaw57dyo7ueu" path="res://assets/Crossbow/crossbow6.png" id="7_gpr0s"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bvh7t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oad4o")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oad4o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gq1wr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_k64m8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_u8fgu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_gt30d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gpr0s")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 7.0
+}]
+
+[node name="Crossbow" type="Node2D"]
+script = ExtResource("1_8kpm8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bvh7t")
+animation = &"shoot"
+frame_progress = 0.562221
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="TimerSelfDestruct" type="Timer" parent="."]
+wait_time = 11.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="TimerSelfDestruct" to="." method="_on_timer_self_destruct_timeout"]
